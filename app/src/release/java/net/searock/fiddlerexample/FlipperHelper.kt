@@ -7,4 +7,9 @@ class FlipperHelper {
     public fun init(application: Application){
 
     }
+
+    fun getOkHttpClient(): OkHttpClient{
+        return OkHttpClient.Builder()
+            .build();
+    }
 }
