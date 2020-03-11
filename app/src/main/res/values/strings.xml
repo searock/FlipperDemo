@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">FiddlerExample</string>
+    <string name="app_name">Fiddler Demo</string>
+    <string name="btnNetwork">Get User From Network</string>
+    <string name="btnDatabase">Get User From Database</string>
+    <string name="btnSharedPreference">Get User From Shared Preference</string>
+    <string name="btnLeakActivity">Leak Activity</string>
+    <string name="btnCrashReporter">Crash Reporter</string>
 </resources>
