@@ -24,4 +24,94 @@ The Leakcanary  dependency
 
 
 ## Code
+1. Create an Application class. 
+2. Create 2 helper class for flipper one for debug where it configures flipper and another for release where it does nothing. 
+
+
+## Basic Setup
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
+    client.start()
+
+## With Network Inspection
+
+You need to share the NetworkFlipperPlugin object with the AndroidFlipperClient and FlipperOkhttpInterceptor object.
+
+    object FlipperHelper{  
+      
+        val networkPlugin = NetworkFlipperPlugin()  
+    }
+
+Add the interceptor in okhttp
+
+    fun getOkHttpClient(): OkHttpClient{  
+        return OkHttpClient.Builder()  
+            .addNetworkInterceptor(FlipperOkhttpInterceptor(FlipperHelper.networkPlugin))  
+            .build();  
+    }
+
+Initialize flipper
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))  
+    client.addPlugin(FlipperHelper.networkPlugin)
+    client.start()
+
+## With Database Inspector
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
+    client.addPlugin(DatabasesFlipperPlugin(application))
+    client.start()
+
+
+## With SharedPreference Inspector
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
+    client.addPlugin(  
+        SharedPreferencesFlipperPlugin(application, "flipper")  
+    )
+    client.start()
+
+## With CrashReporter
+You can use this plugin to notify you of exceptions that you suppress.
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
+    client.addPlugin(CrashReporterPlugin.getInstance())  
+    client.start()
+
+To report an exception use
+
+    CrashReporterPlugin.getInstance()  
+        .sendExceptionMessage(Thread.currentThread(), Exception("Hello World!"))
+
+## With LeakCanary
+
+    SoLoader.init(application, false);  
+      
+    val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
+    client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
+    client.addPlugin(LeakCanaryFlipperPlugin())
+    client.start()
+    val refWatcher = LeakCanary.refWatcher(application)  
+        .listenerServiceClass(RecordLeakService::class.java)  
+        .buildAndInstall()
+
+In your debug manifest add RecordLeakService service.
+
+    <service android:name="com.facebook.flipper.plugins.leakcanary.RecordLeakService" />
+
 
