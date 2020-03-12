@@ -38,6 +38,8 @@ Comes with layout inspector
     client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
     client.start()
 
+![Layout Inspector](https://imgur.com/download/2PwYlcg/)
+
 ## With Network Inspection
 
 You need to share the NetworkFlipperPlugin object with the AndroidFlipperClient and FlipperOkhttpInterceptor object.
@@ -64,6 +66,8 @@ Initialize flipper
     client.addPlugin(FlipperHelper.networkPlugin)
     client.start()
 
+![Network Inspector](https://imgur.com/download/lmnIttb/)
+
 ## With Database Inspector
 
     SoLoader.init(application, false);  
@@ -73,6 +77,7 @@ Initialize flipper
     client.addPlugin(DatabasesFlipperPlugin(application))
     client.start()
 
+![Database Inspector](https://imgur.com/download/kuCpuRP/)
 
 ## With SharedPreference Inspector
 
@@ -84,6 +89,8 @@ Initialize flipper
         SharedPreferencesFlipperPlugin(application, "flipper")  
     )
     client.start()
+
+![Shared Preferences](https://imgur.com/download/LPJBrRm/)
 
 ## With CrashReporter
 You can use this plugin to notify you of exceptions that you suppress.
@@ -99,6 +106,8 @@ To report an exception use
 
     CrashReporterPlugin.getInstance()  
         .sendExceptionMessage(Thread.currentThread(), Exception("Hello World!"))
+
+![Crash Reporter](https://imgur.com/download/UwmzX6q/)
 
 ## With LeakCanary
 
@@ -116,4 +125,4 @@ In your debug manifest add RecordLeakService service.
 
     <service android:name="com.facebook.flipper.plugins.leakcanary.RecordLeakService" />
 
-
+![LeakCanary](https://imgur.com/download/MYc336C)
