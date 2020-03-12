@@ -30,6 +30,8 @@ The Leakcanary  dependency
 
 ## Basic Setup
 
+Comes with layout inspector
+
     SoLoader.init(application, false);  
       
     val client: FlipperClient = AndroidFlipperClient.getInstance(application)  
